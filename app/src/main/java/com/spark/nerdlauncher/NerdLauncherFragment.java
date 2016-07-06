@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -62,19 +65,24 @@ public class NerdLauncherFragment extends Fragment{
 
     private class ActivityHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ResolveInfo mResolveInfo;
-        private TextView mNameTextView;
+        private ImageView mImageView;
+        private TextView mTextView;
 
         public ActivityHolder(View itemView){
             super(itemView);
-            mNameTextView = (TextView) itemView;
-            mNameTextView.setOnClickListener(this);
+            mTextView = (TextView) itemView;
+            mTextView.setOnClickListener(this);
         }
 
         public void bindActivity(ResolveInfo resolveInfo){
             mResolveInfo = resolveInfo;
             PackageManager pm = getActivity().getPackageManager();
             String appName = mResolveInfo.loadLabel(pm).toString();
-            mNameTextView.setText(appName);
+            mTextView.setText(appName);
+            Drawable icon = mResolveInfo.loadIcon(pm);
+            icon.setBounds(new Rect(0, 0, 60, 60));
+            mTextView.setCompoundDrawables(icon, null, null, null);
+            mTextView.setCompoundDrawablePadding(60);
         }
 
         @Override
