@@ -11,8 +11,9 @@
         <activity android:name=".NerdLauncherActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="ANDROID.INTENT.CATEGORY.HOME" />
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
